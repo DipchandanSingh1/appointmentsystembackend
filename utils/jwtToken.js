@@ -10,9 +10,10 @@ export const generateToken=(user,message,statusCode,res)=>{
     }else{
          cookieName="doctorToken"
     }
+   
     
     res.status(statusCode)
-    .cookie(cookieName,token,{
+    res.cookie(cookieName,token,{
         expires:new Date(
             Date.now()+process.env.COOKIE_EXPIRE*24*60*60*1000),
             httponly:true,
