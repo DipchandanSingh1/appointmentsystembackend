@@ -9,6 +9,7 @@ import { createRequire } from 'module';
 const require = createRequire(import.meta.url);
 const nodemailer = require("nodemailer");
 const smtp_email = process.env.SMTP_EMAIL
+const VERIFY_URL=process.env.VERIFY_URL
 import { transporter } from "../utils/sendmail.js";
 
 
@@ -18,7 +19,7 @@ export const sendVerifyLink=catchAsyncErrors(async(name,email,user_id)=>{
             from: smtp_email,
             to: email,
             subject: 'Verify your account',
-            html:'<p>Hii '+name+','+ '<br></br>'+ 'Please click here to <a href="http://localhost:4000/api/v1/user/verify?id='+user_id+'" > verify you </a>'+'DeepCare Hospital'
+            html:'<p>Hii '+name+','+ '<br></br>'+ 'Please click here to <a href="'+VERIFY_URL+'/api/v1/user/verify?id='+user_id+'" > verify you </a>'+'DeepCare Hospital'
         };
 
         transporter.sendMail(mailOptions, (error, info) => {
