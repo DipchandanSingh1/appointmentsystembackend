@@ -12,13 +12,16 @@ const app=express();
 config({path:"./config/config.env"});
 
 
-
-// app.use(cors({
-//     origin:[process.env.FRONTEND_URL,process.env.DASHBOARD_URL,process.env.DOCTORDASHBOARD_URL],
-//     methods:["GET","HEAD","PUT","PATCH","POST","DELETE"],
-//     credentials: true
-// }));
 app.use(cors)
+
+app.use(cors({
+    origin:[process.env.FRONTEND_URL,process.env.DASHBOARD_URL,process.env.DOCTORDASHBOARD_URL],
+    origin:process.env.FRONTEND_URL,
+    origin:process.env.DASHBOARD_URL,
+    origin:process.env.DOCTORDASHBOARD_URL,
+    methods:["GET","HEAD","PUT","PATCH","POST","DELETE","post"],
+    credentials: true
+}));
 
 app.use(cookieParser())
 app.use(express.json())
