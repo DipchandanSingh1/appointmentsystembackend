@@ -8,7 +8,11 @@ import messageRouter from "./routes/messageRoutes.js";
 import appointmentRouter from "./routes/appointmentRoute.js";
 import {errorMiddleware} from './middleware/errorMiddleware.js '
 import userRouter from "./routes/userRoutes.js"
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 const app=express();
+const fs = require('fs');
+const path = require('path');
 config({path:"./config/config.env"});
 
 app.use(cors({
@@ -20,11 +24,23 @@ app.use(cors({
 app.use(cookieParser())
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
-app.use(fileUpload({
-    useTempFiles:true,
-    tempFileDir:"/temp/",
+// app.use(fileUpload({
+//     useTempFiles:true,
+//     tempFileDir:"/temp/",
 
-}))
+// }))
+
+const tempDir = '/tmp'; // Use a safe, existing directory
+
+if (!fs.existsSync(tempDir)) {
+  fs.mkdirSync(tempDir, { recursive: true });
+}
+
+
+app.use(fileUpload({
+    useTempFiles: true,
+    tempFileDir: '/tmp/' // Update this to the correct path
+  }));
 
 
 
