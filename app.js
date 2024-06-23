@@ -11,15 +11,9 @@ import userRouter from "./routes/userRoutes.js"
 const app=express();
 config({path:"./config/config.env"});
 
-
-app.use(cors)
-
 app.use(cors({
     origin:[process.env.FRONTEND_URL,process.env.DASHBOARD_URL,process.env.DOCTORDASHBOARD_URL],
-    origin:process.env.FRONTEND_URL,
-    origin:process.env.DASHBOARD_URL,
-    origin:process.env.DOCTORDASHBOARD_URL,
-    methods:["GET","HEAD","PUT","PATCH","POST","DELETE","post"],
+    methods:["GET","HEAD","PUT","post","PATCH","POST","DELETE"],
     credentials: true
 }));
 
